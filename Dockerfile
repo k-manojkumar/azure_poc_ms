@@ -1,10 +1,12 @@
 FROM websphere-liberty:latest
 
-RUN mkdir /usr/applib
-copy mysql.jar /ussr/applib
+USER root
+
+RUN mkdir -p /usr/applib
+copy mysql-connector-java-8.0.16.jar /usr/applib
 
 COPY server.xml /config/
 
 COPY target/DiaryManagerService.war /config/apps/DiaryManagerService.war
 
-ENTRYPOINT ["/opt/ibm/wlp/bin/server", "run", "defualtServer"]
+ENTRYPOINT ["/opt/ibm/wlp/bin/server", "run", "defaultServer"]
